@@ -8,6 +8,10 @@ class Memory
     @raw[pointer] || 0
   end
 
+  def blank_at?(pointer)
+    at(pointer).zero?
+  end
+
   def update(pointer, &update_block)
     current_value = at(pointer)
     @raw[pointer] = update_block.call(current_value)

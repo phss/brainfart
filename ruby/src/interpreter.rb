@@ -29,7 +29,7 @@ class Interpreter
         #puts "Only numeric input supported: "
         #memory[pointer] = gets.to_i
       elsif operation == '['
-        if memory.at(pointer) == 0
+        if memory.blank_at?(pointer)
           stack = 1
           while stack > 0
             nested_operation = code[operation_index]
@@ -42,7 +42,7 @@ class Interpreter
           end
         end
       elsif operation == ']'
-        if memory.at(pointer) != 0
+        if !memory.blank_at?(pointer)
           operation_index -= 2
           stack = 1
           while stack > 0
