@@ -1,3 +1,5 @@
+require_relative 'memory'
+
 class Interpreter
 
   def initialize(output)
@@ -5,7 +7,7 @@ class Interpreter
   end
 
   def interpret(code)
-    memory = Array.new(100, 0)
+    memory = Memory.new
     pointer = 0
     operation_index = 0
 
@@ -18,16 +20,16 @@ class Interpreter
       elsif operation == '<'
         pointer -= 1
       elsif operation == '+'
-        memory[pointer] += 1
+        memory.update(pointer) { |value| value + 1 }
       elsif operation == '-'
-        memory[pointer] -= 1
+        memory.update(pointer) { |value| value - 1 }
       elsif operation == '.'
-        @output.print memory[pointer].chr
+        @output.print memory.at(pointer).chr
       elsif operation == ','
         #puts "Only numeric input supported: "
         #memory[pointer] = gets.to_i
       elsif operation == '['
-        if memory[pointer] == 0
+        if memory.at(pointer) == 0
           stack = 1
           while stack > 0
             nested_operation = code[operation_index]
@@ -40,7 +42,7 @@ class Interpreter
           end
         end
       elsif operation == ']'
-        if memory[pointer] != 0
+        if memory.at(pointer) != 0
           operation_index -= 2
           stack = 1
           while stack > 0
