@@ -1,10 +1,14 @@
 require_relative '../src/interpreter'
 
 RSpec.describe Interpreter, '#interpret' do
-  it 'interprets hello world' do
-    interpreter = Interpreter.new
+  let(:output) { StringIO.new }
+
+  it 'interprets a hello world BF code' do
+    interpreter = Interpreter.new(output)
     code = '++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.'
 
-    expect(interpreter.interpret(code)).to eq 'Hello world!'
+    interpreter.interpret(code)
+
+    expect(output.string).to eq 'Hello world!'
   end
 end

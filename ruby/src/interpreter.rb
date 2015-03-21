@@ -1,7 +1,11 @@
 class Interpreter
 
+  def initialize(output)
+    @output = output
+  end
+
   def interpret(code)
-    "Hello world!"
+    @output.print "Hello world!"
   end
   
 end
