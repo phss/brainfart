@@ -19,7 +19,8 @@ def interpret(code)
     elsif operation == '.'
       print memory[pointer].chr
     elsif operation == ','
-      # Ignore input operation
+      puts "Only numeric input supported: "
+      memory[pointer] = gets.to_i
     elsif operation == '['
       if memory[pointer] == 0
         stack = 1
