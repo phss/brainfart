@@ -17,7 +17,7 @@ def interpret(code)
     elsif operation == '-'
       memory[pointer] -= 1
     elsif operation == '.'
-      puts memory[pointer]
+      print memory[pointer].chr
     elsif operation == ','
       # Ignore input operation
     elsif operation == '['
