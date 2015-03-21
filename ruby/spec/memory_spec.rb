@@ -16,5 +16,12 @@ RSpec.describe Memory do
 
       expect(memory.at(5120)).to eq 13
     end
+
+    it 'updates existing value at pointer' do
+      memory.update(10) { |value| value + 21 }
+      memory.update(10) { |value| value - 13 }
+      
+      expect(memory.at(10)).to eq 8
+    end
   end
 end
