@@ -21,9 +21,33 @@ def interpret(code)
     elsif operation == ','
       # Ignore input operation
     elsif operation == '['
-      # begin loop
+      if memory[pointer] == 0
+        stack = 1
+        while stack > 0
+          nested_operation = code[operation_index]
+          if nested_operation == '['
+            stack += 1
+          elsif nested_operation == ']'
+            stack -= 1
+          end
+          operation_index += 1
+        end
+      end
     elsif operation == ']'
-      # end loop
+      if memory[pointer] != 0
+        operation_index -= 2
+        stack = 1
+        while stack > 0
+          nested_operation = code[operation_index]
+          if nested_operation == ']'
+            stack += 1
+          elsif nested_operation == '['
+            stack -= 1
+          end
+          operation_index -= 1
+        end
+        operation_index += 1
+      end
     end
   end
 end
