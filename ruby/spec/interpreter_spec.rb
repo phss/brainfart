@@ -8,6 +8,6 @@ RSpec.describe Interpreter, '#interpret' do
     interpreter.interpret('++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>' + 
                           '---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.')
 
-    expect(output.string).to eq 'Hello world!'
+    expect(output.string).to eq "Hello World!\n"
   end
 end
