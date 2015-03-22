@@ -7,9 +7,7 @@ class Interpreter
   end
 
   def interpret(code)
-    tape = Tape.new
-    tape_controller = TapeController.new(tape, 0)
-    pointer = 0
+    tape_controller = TapeController.new(Tape.new, 0)
     operation_index = 0
 
     while operation_index <= code.size
@@ -18,14 +16,12 @@ class Interpreter
 
       if operation == '>'
         tape_controller.move_right
-        pointer += 1
       elsif operation == '<'
         tape_controller.move_left
-        pointer -= 1
       elsif operation == '+'
-        tape.update(pointer) { |value| value + 1 }
+        tape_controller.increment_value
       elsif operation == '-'
-        tape.update(pointer) { |value| value - 1 }
+        tape_controller.decrement_value
       elsif operation == '.'
         @output.print tape_controller.read.chr
       elsif operation == ','
