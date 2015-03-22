@@ -24,26 +24,6 @@ RSpec.describe Tape do
       expect(tape.at(10)).to eq 8
     end
   end
-
-  describe '#blank_at?' do
-    it 'is blank if no value at index' do
-      expect(tape.blank_at?(0)).to be true
-      expect(tape.blank_at?(100000)).to be true
-    end
-
-    it 'is blank if value at index is 0' do
-      tape.update(10) { |value| value + 1 }
-      tape.update(10) { |value| value - 1 }
-
-      expect(tape.blank_at?(10)).to be true
-    end
-
-    it 'is not blank if a non 0 value at index' do
-      tape.update(10) { |value| value + 14 }
-
-      expect(tape.blank_at?(10)).to be false
-    end
-  end
 end
 
 RSpec.describe TapeController do

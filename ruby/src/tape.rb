@@ -8,10 +8,6 @@ class Tape
     @raw[index] || 0
   end
 
-  def blank_at?(index)
-    at(index).zero?
-  end
-
   def update(index, &update_block)
     current_value = at(index)
     @raw[index] = update_block.call(current_value)
@@ -31,7 +27,7 @@ class TapeController
   end
 
   def at_zero_cell?
-    @tape.blank_at?(@pointer)
+    read.zero?
   end
 
   def move_left
