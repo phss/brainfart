@@ -69,4 +69,18 @@ RSpec.describe TapeController do
       expect(controller.read).to eq 4
     end
   end
+
+  describe '(updating)' do
+    it 'increments value at pointer' do
+      controller.increment_value
+
+      expect(controller.read).to eq 4
+    end
+
+    it 'decrements value at pointer' do
+      controller.decrement_value
+
+      expect(controller.read).to eq 2
+    end
+  end
 end

@@ -37,4 +37,12 @@ class TapeController
   def move_right
     @pointer += 1
   end
+
+  def increment_value
+    @tape.update(@pointer) { |value| value + 1 }
+  end
+
+  def decrement_value
+    @tape.update(@pointer) { |value| value - 1 }
+  end
 end
