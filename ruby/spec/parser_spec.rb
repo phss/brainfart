@@ -51,5 +51,11 @@ RSpec.describe Parser, '#parse' do
 
       expect(parser.parse(source)).to eq [:cmdB, :cmdC, :cmdB, :cmdA]
     end
+
+    it 'ignores overlaps' do
+      source = 'axaxa'
+
+      expect(parser.parse(source)).to eq [:cmdA]
+    end
   end
 end
