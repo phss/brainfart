@@ -35,6 +35,23 @@ RSpec.describe InstructionsIterator do
     end
   end
 
+  describe '#previous' do
+    it 'returns previous instructions' do
+      6.times { iterator.next }
+
+      expect(iterator.previous).to eq :jump_back
+      expect(iterator.previous).to eq :decrement_value
+      expect(iterator.previous).to eq :increment_value
+      expect(iterator.previous).to eq :move_left
+      expect(iterator.previous).to eq :move_right
+      expect(iterator.previous).to eq :jump_past
+    end
+
+    it 'returns nil if no more instructions' do
+      expect(iterator.previous).to be nil
+    end
+  end
+
   describe '#jump_past_matching_loop' do
     it 'jumps to instruction after closing of loop' do
       iterator = iterator_for([:output, :output, :jump_back, :ok, :input])
@@ -57,6 +74,18 @@ RSpec.describe InstructionsIterator do
                                :jump_back, :ok, :input])
 
       iterator.jump_past_matching_loop
+
+      expect(iterator.next).to be :ok
+    end
+  end
+
+  describe '#jump_back' do
+    xit 'jumps to start of loop' do
+      iterator = iterator_for([:jump_past, :ok, :output, :output, :jump_back])
+      5.times { iterator.next }
+
+      iterator.jump_back
+      iterator.next
 
       expect(iterator.next).to be :ok
     end

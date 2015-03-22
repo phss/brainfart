@@ -16,6 +16,14 @@ class InstructionsIterator
     @instructions[@current_instruction_index += 1]
   end
 
+  def previous
+    return nil if @current_instruction_index < 0
+
+    i = @instructions[@current_instruction_index]
+    @current_instruction_index -= 1
+    i
+  end
+
   def jump_past_matching_loop
     stack = 1
     while stack > 0
@@ -26,6 +34,24 @@ class InstructionsIterator
         stack -= 1
       end
     end
+  end
+
+  def jump_back
+    instruction_index -= 2
+    instructions_iterator.current_instruction_index -= 2
+    stack = 1
+    while stack > 0
+      nested_instruction = instructions[instruction_index]
+      if nested_instruction == :jump_back
+        stack += 1
+      elsif nested_instruction == :jump_past
+        stack -= 1
+      end
+      instruction_index -= 1
+      instructions_iterator.current_instruction_index -= 1
+    end
+    instruction_index += 1
+    instructions_iterator.current_instruction_index += 1
   end
 
 end
