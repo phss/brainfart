@@ -31,17 +31,7 @@ class Interpreter
         #tape[pointer] = gets.to_i
       elsif instruction == :jump_past
         if tape_controller.at_zero_cell?
-          stack = 1
-          while stack > 0
-            nested_instruction = instructions[instruction_index]
-            if nested_instruction == :jump_past
-              stack += 1
-            elsif nested_instruction == :jump_back
-              stack -= 1
-            end
-            instruction_index += 1
-            instructions_iterator.current_instruction_index += 1
-          end
+          instructions_iterator.jump_past_matching_loop
         end
       elsif instruction == :jump_back
         if !tape_controller.at_zero_cell?
