@@ -1,7 +1,10 @@
 require_relative '../src/instructions'
 
 RSpec.describe InstructionsIterator do
-  let(:instructions) { 'abcdef' }
+  let(:instructions) do 
+    [:jump_past, :move_right, :move_left,
+     :increment_value, :decrement_value, :jump_back]
+  end
   let(:iterator) { InstructionsIterator.new(instructions) }
 
   describe '#has_next?' do
@@ -18,12 +21,12 @@ RSpec.describe InstructionsIterator do
 
   describe '#next' do
     it 'returns next instructions' do
-      expect(iterator.next).to eq 'a'
-      expect(iterator.next).to eq 'b'
-      expect(iterator.next).to eq 'c'
-      expect(iterator.next).to eq 'd'
-      expect(iterator.next).to eq 'e'
-      expect(iterator.next).to eq 'f'
+      expect(iterator.next).to eq :jump_past
+      expect(iterator.next).to eq :move_right
+      expect(iterator.next).to eq :move_left
+      expect(iterator.next).to eq :increment_value
+      expect(iterator.next).to eq :decrement_value
+      expect(iterator.next).to eq :jump_back
     end
 
     it 'returns nil if no more instructions' do
