@@ -1,5 +1,4 @@
 class InstructionsIterator
-  attr_accessor :current_instruction_index
 
   def initialize(instructions)
     @instructions = instructions
