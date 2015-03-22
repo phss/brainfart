@@ -10,7 +10,7 @@ def parse_input
 end
 
 def interpret(instructions)
-  io = IOUtil.new($stdout)
+  io = IOUtil.new($stdin, $stdout)
   interpreter = Interpreter.new(io)
   interpreter.interpret(instructions)
 end

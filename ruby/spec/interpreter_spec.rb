@@ -3,7 +3,7 @@ require_relative '../src/io'
 
 RSpec.describe Interpreter, '#interpret' do
   let(:output) { StringIO.new }
-  let(:io) { IOUtil.new(output) }
+  let(:io) { IOUtil.new(StringIO.new, output) }
   let(:interpreter) { Interpreter.new(io) }
   let(:hello_world_instructions) do
     Parser.new.parse('++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>' + 
