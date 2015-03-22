@@ -32,7 +32,7 @@ class Interpreter
         #puts "Only numeric input supported: "
         #tape[pointer] = gets.to_i
       elsif operation == '['
-        if tape.blank_at?(pointer)
+        if tape_controller.at_zero_cell?
           stack = 1
           while stack > 0
             nested_operation = code[operation_index]
@@ -45,7 +45,7 @@ class Interpreter
           end
         end
       elsif operation == ']'
-        if !tape.blank_at?(pointer)
+        if !tape_controller.at_zero_cell?
           operation_index -= 2
           stack = 1
           while stack > 0
