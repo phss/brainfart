@@ -3,7 +3,7 @@ require_relative '../src/parser'
 RSpec.describe Parser, '#parse' do
   let(:parser) { Parser.new }
   
-  it 'parse source containing only available commands' do
+  it 'parse source containing all available commands' do
     source = '[><+-.,]'
 
     expect(parser.parse(source)).to eq [
@@ -12,4 +12,11 @@ RSpec.describe Parser, '#parse' do
     ]
   end
 
+  it 'ignores non-bf characters' do
+    source = '[abc+.#blah]'
+
+    expect(parser.parse(source)).to eq [
+      :jump_past, :increment_value, :output, :jump_back
+    ]
+  end
 end

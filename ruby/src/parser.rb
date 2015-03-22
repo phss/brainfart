@@ -14,9 +14,7 @@ class Parser
   end
 
   def parse(source)
-    source.split('').map do |bf_command|
-      @bf_to_instruction[bf_command]
-    end
+    source.split('').map { |command| @bf_to_instruction[command] }.compact
   end
   
 end
