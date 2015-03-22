@@ -1,4 +1,5 @@
 require_relative 'tape'
+require_relative 'instructions'
 
 class Interpreter
 
@@ -8,10 +9,11 @@ class Interpreter
 
   def interpret(code)
     tape_controller = TapeController.new(Tape.new, 0)
+    instructions_iterator = InstructionsIterator.new(code)
     operation_index = 0
 
-    while operation_index <= code.size
-      operation = code[operation_index]
+    while instructions_iterator.has_next?
+      operation = instructions_iterator.next
       operation_index += 1
 
       if operation == '>'
@@ -38,11 +40,13 @@ class Interpreter
               stack -= 1
             end
             operation_index += 1
+            instructions_iterator.current_instruction_index += 1
           end
         end
       elsif operation == ']'
         if !tape_controller.at_zero_cell?
           operation_index -= 2
+          instructions_iterator.current_instruction_index -= 2
           stack = 1
           while stack > 0
             nested_operation = code[operation_index]
@@ -52,8 +56,10 @@ class Interpreter
               stack -= 1
             end
             operation_index -= 1
+            instructions_iterator.current_instruction_index -= 1
           end
           operation_index += 1
+          instructions_iterator.current_instruction_index += 1
         end
       end
     end
