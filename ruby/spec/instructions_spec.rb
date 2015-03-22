@@ -77,6 +77,12 @@ RSpec.describe InstructionsIterator do
 
       expect(iterator.next).to be :ok
     end
+
+    it 'errors if no matching loop' do
+      iterator = iterator_for([:output, :output, :output])
+
+      expect { iterator.jump_past_matching_loop }.to raise_error('No matching loop')
+    end
   end
 
   describe '#jump_back' do
