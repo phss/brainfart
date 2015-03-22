@@ -9,4 +9,10 @@ class InstructionsIterator
     @current_instruction_index < @instructions.size - 1
   end
 
+  def next
+    instruction = @instructions[@current_instruction_index]
+    @current_instruction_index += 1
+    return instruction
+  end
+
 end

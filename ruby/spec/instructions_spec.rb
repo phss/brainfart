@@ -15,4 +15,12 @@ RSpec.describe InstructionsIterator do
       expect(iterator.has_next?).to be false
     end
   end
+
+  describe '#next' do
+    it 'returns next iterations' do
+      expect(iterator.next).to eq 'a'
+      expect(iterator.next).to eq 'b'
+      expect(iterator.next).to eq 'c'
+    end
+  end
 end
