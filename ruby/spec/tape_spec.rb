@@ -52,13 +52,21 @@ RSpec.describe TapeController do
     0.upto(10) { |i| tape.update(i) { i + 1 } }
     return tape
   end
-  let(:controller) { TapeController.new(tape, 0) }
+  let(:controller) { TapeController.new(tape, 2) }
   
-  describe '#read' do
-    it 'reads current pointer of the cell' do
-      controller = TapeController.new(tape, 2)
+  it 'reads current pointer of the cell' do
+    expect(controller.read).to eq 3
+  end
 
-      expect(controller.read).to eq 3
-    end
+  it 'moves pointer left' do
+    controller.move_left
+
+    expect(controller.read).to eq 2
+  end
+
+  it 'moves pointer right' do
+    controller.move_right
+
+    expect(controller.read).to eq 4
   end
 end

@@ -29,4 +29,12 @@ class TapeController
   def read
     @tape.at(@pointer)
   end
+
+  def move_left
+    @pointer -= 1
+  end
+
+  def move_right
+    @pointer += 1
+  end
 end

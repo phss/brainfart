@@ -8,6 +8,7 @@ class Interpreter
 
   def interpret(code)
     tape = Tape.new
+    tape_controller = TapeController.new(tape, 0)
     pointer = 0
     operation_index = 0
 
@@ -16,15 +17,17 @@ class Interpreter
       operation_index += 1
 
       if operation == '>'
+        tape_controller.move_right
         pointer += 1
       elsif operation == '<'
+        tape_controller.move_left
         pointer -= 1
       elsif operation == '+'
         tape.update(pointer) { |value| value + 1 }
       elsif operation == '-'
         tape.update(pointer) { |value| value - 1 }
       elsif operation == '.'
-        @output.print TapeController.new(tape, pointer).read.chr
+        @output.print tape_controller.read.chr
       elsif operation == ','
         #puts "Only numeric input supported: "
         #tape[pointer] = gets.to_i
