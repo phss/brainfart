@@ -24,7 +24,7 @@ class Interpreter
       elsif operation == '-'
         tape.update(pointer) { |value| value - 1 }
       elsif operation == '.'
-        @output.print tape.at(pointer).chr
+        @output.print TapeController.new(tape, pointer).read.chr
       elsif operation == ','
         #puts "Only numeric input supported: "
         #tape[pointer] = gets.to_i
