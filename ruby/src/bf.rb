@@ -1,5 +1,6 @@
 require_relative 'interpreter'
 require_relative 'parser'
+require_relative 'io'
 
 
 def parse_input
@@ -9,7 +10,8 @@ def parse_input
 end
 
 def interpret(instructions)
-  interpreter = Interpreter.new($stdout)
+  io = IOUtil.new($stdout)
+  interpreter = Interpreter.new(io)
   interpreter.interpret(instructions)
 end
 

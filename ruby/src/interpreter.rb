@@ -3,8 +3,8 @@ require_relative 'instructions'
 
 class Interpreter
 
-  def initialize(output)
-    @output = output
+  def initialize(io)
+    @io = io
   end
 
   def interpret(instructions)
@@ -26,7 +26,7 @@ class Interpreter
       move_left:       -> { tape_controller.move_left },
       increment_value: -> { tape_controller.increment_value },
       decrement_value: -> { tape_controller.decrement_value },
-      output:          -> { @output.print tape_controller.read.chr },
+      output:          -> { @io.print_char(tape_controller.read) },
       input:           -> { },
       jump_past:       -> { iterator.jump_past_matching_loop if tape_controller.at_zero_cell? },
       jump_back:       -> { iterator.jump_back_loop_start if !tape_controller.at_zero_cell? }
