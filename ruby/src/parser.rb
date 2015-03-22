@@ -1,16 +1,9 @@
 class Parser
 
   def initialize(config)
-    @bf_to_instruction = {
-      '>' => :move_right,
-      '<' => :move_left,
-      '+' => :increment_value,
-      '-' => :decrement_value,
-      '.' => :output,
-      ',' => :input,
-      '[' => :jump_past,
-      ']' => :jump_back
-    }
+    @bf_to_instruction = config['commands'].map do |name, instruction|
+      [instruction, name.to_sym]
+    end.to_h
   end
 
   def parse(source)

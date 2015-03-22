@@ -1,22 +1,27 @@
 require_relative '../src/parser'
 
 RSpec.describe Parser, '#parse' do
-  let(:parser) { Parser.new({"command_size"=>1, "commands"=>{"move_right"=>">", "move_left"=>"<", "increment_value"=>"+", "decrement_value"=>"-", "output"=>".", "input"=>",", "jump_past"=>"[", "jump_back"=>"]"}}) }
-  
-  it 'parse source containing all available commands' do
-    source = '[><+-.,]'
+  let(:simple_language) do
+    {
+      "command_size" => 1,
+      "commands"=> {
+        "cmdA" => "a",
+        "cmdB" => "b",
+        "cmdC" => "c"
+      }
+    }
+  end
+  let(:parser) { Parser.new(simple_language) }
 
-    expect(parser.parse(source)).to eq [
-      :jump_past, :move_right, :move_left, :increment_value,
-      :decrement_value, :output, :input, :jump_back
-    ]
+  it 'parse source containing all available commands' do
+    source = 'bac'
+
+    expect(parser.parse(source)).to eq [:cmdB, :cmdA, :cmdC]
   end
 
   it 'ignores non-bf characters' do
-    source = '[abc+.#blah]'
+    source = '[bXc+.#blahCCC]'
 
-    expect(parser.parse(source)).to eq [
-      :jump_past, :increment_value, :output, :jump_back
-    ]
+    expect(parser.parse(source)).to eq [:cmdB, :cmdC, :cmdB, :cmdA]
   end
 end
