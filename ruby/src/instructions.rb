@@ -37,7 +37,7 @@ class InstructionsIterator
     end
   end
 
-  def jump_back
+  def jump_back_loop_start
     previous
     stack = 1
     while stack > 0

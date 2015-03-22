@@ -33,7 +33,7 @@ class Interpreter
         end
       elsif instruction == :jump_back
         if !tape_controller.at_zero_cell?
-          instructions_iterator.jump_back
+          instructions_iterator.jump_back_loop_start
         end
       end
     end

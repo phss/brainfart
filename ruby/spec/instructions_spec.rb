@@ -85,12 +85,12 @@ RSpec.describe InstructionsIterator do
     end
   end
 
-  describe '#jump_back' do
+  describe '#jump_back_loop_start' do
     it 'jumps to start of loop' do
       iterator = iterator_for([:jump_past, :ok, :output, :output, :jump_back])
       5.times { iterator.next }
 
-      iterator.jump_back
+      iterator.jump_back_loop_start
       iterator.next
 
       expect(iterator.next).to be :ok
@@ -100,7 +100,7 @@ RSpec.describe InstructionsIterator do
       iterator = iterator_for([:jump_past, :ok, :jump_past, :output, :jump_back, :jump_back])
       6.times { iterator.next }
 
-      iterator.jump_back
+      iterator.jump_back_loop_start
       iterator.next
 
       expect(iterator.next).to be :ok
@@ -110,7 +110,7 @@ RSpec.describe InstructionsIterator do
       iterator = iterator_for([:output, :output, :output])
       3.times { iterator.next }
 
-      expect { iterator.jump_back }.to raise_error('No matching loop')
+      expect { iterator.jump_back_loop_start }.to raise_error('No matching loop')
     end
   end
 
