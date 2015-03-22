@@ -29,14 +29,14 @@ end
 RSpec.describe TapeController do
   let(:tape) do
     tape = Tape.new
-    0.upto(10) { |i| tape.update(i) { i } }
+    0.upto(10) { |i| tape.update(i) { i * 10 } }
     return tape
   end
   let(:controller) { TapeController.new(tape, 3) }
   
   describe '(reading)' do
     it 'reads current pointer of the cell' do
-      expect(controller.read).to eq 3
+      expect(controller.read).to eq 30
     end
 
     it 'is not at zero cell if tape has non zero value' do
@@ -60,13 +60,13 @@ RSpec.describe TapeController do
     it 'moves pointer left' do
       controller.move_left
 
-      expect(controller.read).to eq 2
+      expect(controller.read).to eq 20
     end
 
     it 'moves pointer right' do
       controller.move_right
 
-      expect(controller.read).to eq 4
+      expect(controller.read).to eq 40
     end
   end
 
@@ -74,13 +74,13 @@ RSpec.describe TapeController do
     it 'increments value at pointer' do
       controller.increment_value
 
-      expect(controller.read).to eq 4
+      expect(controller.read).to eq 31
     end
 
     it 'decrements value at pointer' do
       controller.decrement_value
 
-      expect(controller.read).to eq 2
+      expect(controller.read).to eq 29
     end
   end
 end
