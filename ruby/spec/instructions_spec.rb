@@ -80,7 +80,7 @@ RSpec.describe InstructionsIterator do
   end
 
   describe '#jump_back' do
-    xit 'jumps to start of loop' do
+    it 'jumps to start of loop' do
       iterator = iterator_for([:jump_past, :ok, :output, :output, :jump_back])
       5.times { iterator.next }
 
