@@ -1,0 +1,10 @@
+command_size: 7
+commands:
+  move_right: Ook. Ook?
+  move_left: Ook? Ook.
+  increment_value: Ook. Ook.
+  decrement_value: Ook! Ook!
+  output: Ook! Ook.
+  input: Ook. Ook!
+  jump_past: Ook! Ook?
+  jump_back: Ook? Ook!
