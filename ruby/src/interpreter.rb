@@ -18,18 +18,18 @@ class Interpreter
     end
   end
 
- private 
+ private
 
-  def interpretation_rules(tape_controller, instructions_iterator)
+  def interpretation_rules(tape_controller, iterator)
     {
-      move_right:  lambda { tape_controller.move_right },
-      move_left:  lambda { tape_controller.move_left },
-      increment_value: lambda { tape_controller.increment_value },
-      decrement_value: lambda { tape_controller.decrement_value },
-      output: lambda { @output.print tape_controller.read.chr },
-      input: lambda { },
-      jump_past: lambda { instructions_iterator.jump_past_matching_loop if tape_controller.at_zero_cell? },
-      jump_back: lambda { instructions_iterator.jump_back_loop_start unless tape_controller.at_zero_cell? },
+      move_right:      -> { tape_controller.move_right },
+      move_left:       -> { tape_controller.move_left },
+      increment_value: -> { tape_controller.increment_value },
+      decrement_value: -> { tape_controller.decrement_value },
+      output:          -> { @output.print tape_controller.read.chr },
+      input:           -> { },
+      jump_past:       -> { iterator.jump_past_matching_loop if tape_controller.at_zero_cell? },
+      jump_back:       -> { iterator.jump_back_loop_start if !tape_controller.at_zero_cell? }
     }
   end
 
