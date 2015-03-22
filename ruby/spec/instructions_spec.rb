@@ -1,11 +1,10 @@
 require_relative '../src/instructions'
 
 RSpec.describe InstructionsIterator do
-  let(:instructions) do 
-    [:jump_past, :move_right, :move_left,
-     :increment_value, :decrement_value, :jump_back]
+  let(:iterator) do 
+    iterator_for([:jump_past, :move_right, :move_left,
+                  :increment_value, :decrement_value, :jump_back])
   end
-  let(:iterator) { InstructionsIterator.new(instructions) }
 
   describe '#has_next?' do
     it 'has next instruction when not at end' do
@@ -38,12 +37,15 @@ RSpec.describe InstructionsIterator do
 
   describe '#jump_past_matching_loop' do
     it 'jumps to instruction after closing of loop' do
-      instructions = [:output, :output, :jump_back, :ok, :input]
-      iterator = InstructionsIterator.new(instructions)
+      iterator = iterator_for([:output, :output, :jump_back, :ok, :input])
 
       iterator.jump_past_matching_loop
 
       expect(iterator.next).to be :ok
     end
+  end
+
+  def iterator_for(instructions)
+    InstructionsIterator.new(instructions)
   end
 end
