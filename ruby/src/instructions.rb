@@ -24,27 +24,23 @@ class InstructionsIterator
   end
 
   def jump_past_matching_loop
-    stack = 1
-    while stack > 0
-      nested_instruction = self.next
-      if nested_instruction == :jump_past
-        stack += 1
-      elsif nested_instruction == :jump_back
-        stack -= 1
-      elsif nested_instruction.nil?
-        raise "No matching loop"
-      end
-    end
+    jump(:jump_past, :jump_back, &method(:next))
   end
 
   def jump_back_loop_start
     previous
+    jump(:jump_back, :jump_past, &method(:previous))
+  end
+
+ private
+
+  def jump(push_instruction, pop_instruction, &next_function)
     stack = 1
     while stack > 0
-      nested_instruction = previous
-      if nested_instruction == :jump_back
+      nested_instruction = next_function.call
+      if nested_instruction == push_instruction
         stack += 1
-      elsif nested_instruction == :jump_past
+      elsif nested_instruction == pop_instruction
         stack -= 1
       elsif nested_instruction.nil?
         raise "No matching loop"
