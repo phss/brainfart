@@ -89,6 +89,16 @@ RSpec.describe InstructionsIterator do
 
       expect(iterator.next).to be :ok
     end
+
+    it 'jumps ignore nested loops' do
+      iterator = iterator_for([:jump_past, :ok, :jump_past, :output, :jump_back, :jump_back])
+      6.times { iterator.next }
+
+      iterator.jump_back
+      iterator.next
+
+      expect(iterator.next).to be :ok
+    end    
   end
 
   def iterator_for(instructions)
