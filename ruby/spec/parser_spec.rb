@@ -1,7 +1,7 @@
 require_relative '../src/parser'
 
 RSpec.describe Parser, '#parse' do
-  let(:parser) { Parser.new }
+  let(:parser) { Parser.new({"command_size"=>1, "commands"=>{"move_right"=>">", "move_left"=>"<", "increment_value"=>"+", "decrement_value"=>"-", "output"=>".", "input"=>",", "jump_past"=>"[", "jump_back"=>"]"}}) }
   
   it 'parse source containing all available commands' do
     source = '[><+-.,]'

@@ -1,6 +1,6 @@
 class Parser
 
-  def initialize
+  def initialize(config)
     @bf_to_instruction = {
       '>' => :move_right,
       '<' => :move_left,

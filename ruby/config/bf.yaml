@@ -1,10 +1,10 @@
 command_size: 1
 commands:
-  move_right: >
-  move_left: <
-  increment_value: +
-  decrement_value: -
-  output: .
-  input: ,
-  jump_past: [
-  jump_back: ]
+  move_right: '>'
+  move_left: '<'
+  increment_value: '+'
+  decrement_value: '-'
+  output: '.'
+  input: ','
+  jump_past: '['
+  jump_back: ']'

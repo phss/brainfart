@@ -2,4 +2,4 @@
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-ruby $DIR/src/bf.rb $1
+ruby $DIR/src/bf.rb $DIR/config/bf.yaml $1

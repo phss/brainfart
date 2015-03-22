@@ -1,12 +1,13 @@
+require 'yaml'
 require_relative 'interpreter'
 require_relative 'parser'
 require_relative 'io'
 
 
 def parse_input
-  filename = ARGV.shift
-  code = File.read(filename)
-  return Parser.new.parse(code)
+  source_config = YAML.load_file(ARGV.shift)
+  source = File.read(ARGV.shift)
+  return Parser.new(source_config).parse(source)
 end
 
 def interpret(instructions)
