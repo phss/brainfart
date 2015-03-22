@@ -105,6 +105,13 @@ RSpec.describe InstructionsIterator do
 
       expect(iterator.next).to be :ok
     end    
+
+    it 'errors if no matching loop' do
+      iterator = iterator_for([:output, :output, :output])
+      3.times { iterator.next }
+
+      expect { iterator.jump_back }.to raise_error('No matching loop')
+    end
   end
 
   def iterator_for(instructions)

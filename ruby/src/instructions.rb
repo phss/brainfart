@@ -46,6 +46,8 @@ class InstructionsIterator
         stack += 1
       elsif nested_instruction == :jump_past
         stack -= 1
+      elsif nested_instruction.nil?
+        raise "No matching loop"
       end
     end
   end
