@@ -30,6 +30,10 @@ class TapeController
     @tape.at(@pointer)
   end
 
+  def at_zero_cell?
+    @tape.blank_at?(@pointer)
+  end
+
   def move_left
     @pointer -= 1
   end

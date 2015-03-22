@@ -49,24 +49,44 @@ end
 RSpec.describe TapeController do
   let(:tape) do
     tape = Tape.new
-    0.upto(10) { |i| tape.update(i) { i + 1 } }
+    0.upto(10) { |i| tape.update(i) { i } }
     return tape
   end
-  let(:controller) { TapeController.new(tape, 2) }
+  let(:controller) { TapeController.new(tape, 3) }
   
-  it 'reads current pointer of the cell' do
-    expect(controller.read).to eq 3
+  describe '(reading)' do
+    it 'reads current pointer of the cell' do
+      expect(controller.read).to eq 3
+    end
+
+    it 'is not at zero cell if tape has non zero value' do
+      expect(controller.at_zero_cell?).to be false
+    end
+
+    it 'is at zero cell if tape has 0' do
+      controller = TapeController.new(tape, 0)
+
+      expect(controller.at_zero_cell?).to be true
+    end
+
+    it 'is at zero cell if in new tape space' do
+      controller = TapeController.new(tape, 1000)
+
+      expect(controller.at_zero_cell?).to be true
+    end
   end
 
-  it 'moves pointer left' do
-    controller.move_left
+  describe '(moving pointer)' do
+    it 'moves pointer left' do
+      controller.move_left
 
-    expect(controller.read).to eq 2
-  end
+      expect(controller.read).to eq 2
+    end
 
-  it 'moves pointer right' do
-    controller.move_right
+    it 'moves pointer right' do
+      controller.move_right
 
-    expect(controller.read).to eq 4
+      expect(controller.read).to eq 4
+    end
   end
 end
