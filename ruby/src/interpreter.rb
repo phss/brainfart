@@ -1,4 +1,4 @@
-require_relative 'memory'
+require_relative 'tape'
 
 class Interpreter
 
@@ -7,7 +7,7 @@ class Interpreter
   end
 
   def interpret(code)
-    memory = Memory.new
+    tape = Tape.new
     pointer = 0
     operation_index = 0
 
@@ -20,16 +20,16 @@ class Interpreter
       elsif operation == '<'
         pointer -= 1
       elsif operation == '+'
-        memory.update(pointer) { |value| value + 1 }
+        tape.update(pointer) { |value| value + 1 }
       elsif operation == '-'
-        memory.update(pointer) { |value| value - 1 }
+        tape.update(pointer) { |value| value - 1 }
       elsif operation == '.'
-        @output.print memory.at(pointer).chr
+        @output.print tape.at(pointer).chr
       elsif operation == ','
         #puts "Only numeric input supported: "
-        #memory[pointer] = gets.to_i
+        #tape[pointer] = gets.to_i
       elsif operation == '['
-        if memory.blank_at?(pointer)
+        if tape.blank_at?(pointer)
           stack = 1
           while stack > 0
             nested_operation = code[operation_index]
@@ -42,7 +42,7 @@ class Interpreter
           end
         end
       elsif operation == ']'
-        if !memory.blank_at?(pointer)
+        if !tape.blank_at?(pointer)
           operation_index -= 2
           stack = 1
           while stack > 0
@@ -57,7 +57,7 @@ class Interpreter
           operation_index += 1
         end
       end
-    end    
+    end
   end
-  
+
 end
