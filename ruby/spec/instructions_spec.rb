@@ -43,6 +43,14 @@ RSpec.describe InstructionsIterator do
 
       expect(iterator.next).to be :ok
     end
+
+    it 'jumps to end of instructions' do
+      iterator = iterator_for([:output, :output, :jump_back])
+
+      iterator.jump_past_matching_loop
+
+      expect(iterator.next).to be nil
+    end
   end
 
   def iterator_for(instructions)
