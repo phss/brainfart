@@ -2,7 +2,7 @@ class InstructionsIterator
 
   def initialize(instructions)
     @instructions = instructions
-    @current_instruction_index = 0
+    @current_instruction_index = -1
   end
 
   def has_next?
@@ -10,9 +10,9 @@ class InstructionsIterator
   end
 
   def next
-    instruction = @instructions[@current_instruction_index]
-    @current_instruction_index += 1
-    return instruction
+    return nil unless has_next?
+
+    @instructions[@current_instruction_index += 1]
   end
 
 end
