@@ -35,4 +35,15 @@ RSpec.describe InstructionsIterator do
       expect(iterator.next).to be nil
     end
   end
+
+  describe '#jump_past_matching_loop' do
+    it 'jumps to instruction after closing of loop' do
+      instructions = [:output, :output, :jump_back, :ok, :input]
+      iterator = InstructionsIterator.new(instructions)
+
+      iterator.jump_past_matching_loop
+
+      expect(iterator.next).to be :ok
+    end
+  end
 end
