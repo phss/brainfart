@@ -82,5 +82,11 @@ RSpec.describe TapeController do
 
       expect(controller.read).to eq 29
     end
+
+    it 'stores value' do
+      controller.store(42)
+
+      expect(controller.read).to eq 42
+    end
   end
 end

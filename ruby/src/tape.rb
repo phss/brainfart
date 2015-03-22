@@ -45,4 +45,8 @@ class TapeController
   def decrement_value
     @tape.update(@pointer) { |value| value - 1 }
   end
+
+  def store(value)
+    @tape.update(@pointer) { value }
+  end
 end
